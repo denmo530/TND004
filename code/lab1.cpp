@@ -224,7 +224,7 @@ void TND004::stable_partition_iterative(std::vector<int>& V, std::function<bool(
     
     V = returnTrue; 
 
-    // Time complexity is: O(4n)
+    // Time complexity is: O(n)
     // Space complexity is:  
 }
 
