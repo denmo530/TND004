@@ -74,8 +74,8 @@ int main() {
         std::copy(std::begin(seq), std::end(seq), std::ostream_iterator<int>{std::cout, " "});
 
         execute(seq, std::vector<int>{2, 1});
-		
-		std::cout << "\nEmpty sequence: ";
+        
+        std::cout << "\nEmpty sequence: ";
         std::vector<int> empty;
 
         execute(empty, std::vector<int>{});
@@ -196,33 +196,36 @@ void execute(std::vector<int>& V, const std::vector<int>& res) {
     TND004::stable_partition_iterative(V, even);
     assert(V == res);  // compare with the expected result
 
-    /*
-    * Uncomment for exercise 2
+    
+    //* Uncomment for exercise 2
     std::cout << "Divide-and-conquer stable partition\n";
     TND004::stable_partition(_copy, even);
     assert(_copy == res);  // compare with the expected result
-    */
+    
 }
 
 
 
 // Iterative algorithm
 void TND004::stable_partition_iterative(std::vector<int>& V, std::function<bool(int)> p) {
-    // we want to go through the vector and check if the test returns true
-    // if true add to a true vector and the false ones to a false vector
-    // Add the two vectors together with the false ones at the end
-    
-    int size = V.size();
-    std::vector<int> returnTrue;
-    std::vector<int> returnFalse;
-    
-    for (int i = 0; i < size; i++) {
-        p(V[i]) ? returnTrue.push_back(V[i]) : returnFalse.push_back(V[i]);
+    // IMPLEMENT before Lab1 HA
+
+    int size = V.size();  // O(1)
+    std::vector<int> returnTrue; //O(1)
+    std::vector<int> returnFalse; // O(1)
+    returnTrue.reserve(size); // O(n)
+    returnFalse.reserve(size); //O(n)
+
+    for (int i = 0; i < size; i++) { // O(n)
+        p(V[i]) ? returnTrue.push_back(V[i]) : returnFalse.push_back(V[i]); // O(1) because we reserve space earlier
     }
+
+    returnTrue.insert(returnTrue.end(), returnFalse.begin(), returnFalse.end()); // O(n)
     
-    returnTrue.insert(returnTrue.end(), returnFalse.begin(), returnFalse.end());
-    
-    V = returnTrue;
+    V = returnTrue; // O(n)
+
+    // Time complexity is: T(n) = O(n)
+    // Space complexity is: O(n)
 }
 
 // Auxiliary function that performs the stable partition recursively
@@ -234,8 +237,27 @@ std::vector<int>::iterator TND004::stable_partition(std::vector<int>::iterator f
                                             std::vector<int>::iterator last,
                                             std::function<bool(int)> p) {
     // IMPLEMENT
+    // base cases empty or only one element
+    if (std::distance(first, last) == 0) // O(1)
+        return first;
+    if (std::distance(first, last) == 1) { // O(1)
+        if (p(*first))  // p function calls are O(1)
+            return last;
+        else
+            return first;
+    }
+    
+    auto mid = first + std::distance(first, last) / 2; // O(n)
 
-    return first;  // delete this line
+    // divide
+    auto it1 = stable_partition(first, mid, p); // O(logn)
+    auto it2 = stable_partition(mid, last, p); // O(logn)
+
+    //conquer
+    
+    auto it = std::rotate(it1, mid, it2);  // O(n)
+    
+    return it; // O(1)
+    
+
 }  // end of function
-
-
