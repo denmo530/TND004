@@ -47,10 +47,9 @@ void Set::make_empty() {
     // IMPLEMENT before Lab1 HA
     Node* temp = head; 
 
-    while (temp->next != tail) { 
-        Node* ptr = temp; 
-        temp = temp->next; 
-        remove_node(ptr); 
+    while (temp->next != tail) {
+        temp = temp->next;
+        remove_node(temp->prev);
     }
 
     head->next = tail;
@@ -142,7 +141,7 @@ bool Set::less_than(const Set& b) const {
         }
     }
     
-    return ptr1 == tail;  // remove this line
+    return ptr1 == tail;
 }
 
 
@@ -151,10 +150,10 @@ bool Set::less_than(const Set& b) const {
 // Add to *this all elements in Set S (repeated elements are not allowed)
 Set& Set::operator+=(const Set& S) {
     // IMPLEMENT
-    Node* ptr1 = this->head->next;
+    Node* ptr1 = head->next;
     Node* ptr2 = S.head->next;
     
-    while( ptr1 != this->tail && ptr2 != S.tail) {
+    while( ptr1 != tail && ptr2 != S.tail) {
         if(ptr1->value < ptr2->value){
             ptr1 = ptr1->next;
         }else if(ptr1->value == ptr2->value) {
@@ -162,42 +161,45 @@ Set& Set::operator+=(const Set& S) {
             ptr2 = ptr2->next;
         }else if(ptr1->value > ptr2->value){
             insert_node(ptr1, ptr2->value);
-            ptr1->prev = ptr1->next; 
             ptr2 = ptr2->next;
         }
-        
-        while (ptr2 != S.tail) {
-            insert_node(ptr1, ptr2->value);
-            tail->prev = ptr1->next;
-            
-            ptr2 = ptr2->next; 
-            
-        }
-        
-        return *this; 
-        
     }
-        
-        
-        /*
-        if(ptr1->value == ptr2->value){
-            ptr1 = ptr1->next;
-            ptr2 = ptr2->next;
-        }else if(ptr1->value < ptr2->value) {
-                ptr1 = ptr1->next;
-                remove_node(ptr1->prev);
-            }
-            else
-                ptr2 = ptr2->next;
-            
-        */
     
+    // Add whatever is left in Set S
+    while (ptr2->next != nullptr) {
+        insert_node(ptr1, ptr2->value);
+        ptr1 = ptr1->next;
+        ptr2 = ptr2->next;
+    }
+
     return *this;
-}
+} 
 
 // Modify *this such that it becomes the intersection of *this with Set S
 Set& Set::operator*=(const Set& S) {
     // IMPLEMENT
+    
+    Node* ptr1 = head->next;
+    Node* ptr2 = S.head->next;
+    
+    while(ptr1 != tail && ptr2 != S.tail){
+        if(ptr1->value == ptr2->value) {
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }else if (ptr1->value > ptr2->value){
+            ptr2 = ptr2->next;
+        }
+        else if (ptr1->value < ptr2->value) {
+            ptr1 = ptr1->next;
+            remove_node(ptr1->prev);
+        }
+    }
+    
+    // Remove rest of *this if there are more values
+    while(ptr1->next != nullptr) {
+        ptr1 = ptr1->next;
+        remove_node(ptr1->prev);
+    }
 
     return *this;
 }
@@ -205,7 +207,20 @@ Set& Set::operator*=(const Set& S) {
 // Modify *this such that it becomes the Set difference between Set *this and Set S
 Set& Set::operator-=(const Set& S) {
     // IMPLEMENT
-
+    Node* ptr1 = head->next;
+    Node* ptr2 = S.head->next;
+    
+    while(ptr1 != tail && ptr2 != S.tail){
+        if (ptr1->value == ptr2->value) {
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+            remove_node(ptr1->prev);
+        }else if(ptr1->value < ptr2->value){
+            ptr1 = ptr1->next;
+        } else if(ptr1->value > ptr2->value){
+            ptr2 = ptr2->next; 
+        }
+    }
     return *this;
 }
 
@@ -237,6 +252,7 @@ void Set::insert_node(Node* p, int val) {
     // IMPLEMENT before Lab1 HA
     Node* newNode = new Node(val, p, p->prev);
     p->prev = p->prev->next = newNode;
+    
     counter++;
 
     
