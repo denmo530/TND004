@@ -1,0 +1,3 @@
+/Users/denkan/TND004/Labs/lab3/build/CMakeFiles/Lab3.dir
+/Users/denkan/TND004/Labs/lab3/build/CMakeFiles/ALL_BUILD.dir
+/Users/denkan/TND004/Labs/lab3/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,7 @@
+Target dependency graph (3 targets)
+ZERO_CHECK in TND004-Lab-3, no dependencies
+Lab3 in TND004-Lab-3, depends on:
+ZERO_CHECK in TND004-Lab-3 (explicit)
+ALL_BUILD in TND004-Lab-3, depends on:
+Lab3 in TND004-Lab-3 (explicit)
+ZERO_CHECK in TND004-Lab-3 (explicit)
