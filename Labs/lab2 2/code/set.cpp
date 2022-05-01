@@ -173,7 +173,7 @@ Set& Set::operator+=(const Set& S) {
     }
 
     return *this;
-} 
+}
 
 // Modify *this such that it becomes the intersection of *this with Set S
 Set& Set::operator*=(const Set& S) {
