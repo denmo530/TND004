@@ -32,7 +32,6 @@ public:
 
     BinarySearchTree() : root{nullptr} {
     }
-
     /**
      * Copy constructor
      */
@@ -40,8 +39,9 @@ public:
 
     // Constructor 
     explicit BinarySearchTree(const std::vector<Comparable>& V) {
-
-        root = createBST(V.begin(), V.end(), nullptr); 
+        root = createBST(V.begin(), V.end(), nullptr); // function call is O(n)
+        
+        // nlog(n) in the end
         
     }
 
@@ -214,19 +214,19 @@ private:
 
     //Create BST function
     Node* createBST(typename std::vector<Comparable>::const_iterator begin, typename std::vector<Comparable>::const_iterator end, Node* parent) {
-        if (std::distance(begin, end) == 0)
+        if (std::distance(begin, end) == 0) // worst case O(n)
             return nullptr; 
 
-        auto mid = begin + std::distance(begin, end) / 2; 
-        Node* newNode = new Node(*mid, nullptr, nullptr, nullptr);
-        newNode->parent = parent; 
+        auto mid = begin + std::distance(begin, end) / 2;  // worst case O(n)
+        Node* newNode = new Node(*mid, nullptr, nullptr, nullptr); // O(1)
+        newNode->parent = parent;  // O(1)
 
-        newNode->left = createBST(begin, mid, newNode); 
-        newNode->right = createBST( mid + 1, end, newNode); 
+        newNode->left = createBST(begin, mid, newNode); // log(n)
+        newNode->right = createBST( mid + 1, end, newNode); // log(n)
         
 
-        return newNode; 
-
+        return newNode; // O(1)
+// 2n + 2log(n) = log(n)
     }
 
 

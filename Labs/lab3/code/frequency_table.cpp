@@ -30,18 +30,13 @@ public:
     // overloaded < operator
     // sort in alphabetical order.
     bool operator<(const Row &r) const{
-        return key<r.key;
+        return key < r.key;
     }
     
     // Overload == for assertion
     bool operator==(const Row &r) const {
-        return key == r.key;
+        return key == r.key && counter == r.counter;
     }
-    
-    void incrementCounter() {
-        counter++;
-    }
-    
 
     std::string key;
     int counter = 0;
@@ -53,9 +48,9 @@ public:
 // Check if char is ok or not
 bool checkChar(const char c) {
     if (std::isdigit(c) || std::isalpha(c) || (c == '\''))
-        return true;
+        return false;
     
-    return false;
+    return true;
 }
 
 
@@ -96,18 +91,17 @@ void exercise3() {
                 freqTable.insert(Row(key));
                 it = freqTable.begin();
             }else {
-                it->incrementCounter();
+                it->counter++;
             }
             word_counter++;
             
             std::cout << "Number of words in the file = " << word_counter << std::endl;
             std::cout << "Number of unique words in the file = " << freqTable.get_count_nodes() << std::endl << std::endl;
             std::cout << "\n\n\n";
-            std::cout << "Frequency table sorted alphabetically ...\n\n";
         }
         
         std::vector<Row> test;
-        std::copy(freqTable.begin(), freqTable.end(), test.begin());
+        std::copy(freqTable.begin(), freqTable.end(), std::back_inserter(test));
         
         std::ifstream in("../../code/frequency_table.txt");
         std::vector<Row> facit;
