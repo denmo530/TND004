@@ -1,0 +1,68 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : false,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "eef1c38bf8d2eb6cf84e19cd1becace222ba0bb54893ae24deb12bb1e8a9989c"
+    },
+    {
+      "guid" : "eef1c38bf8d2eb6cf84e19cd1becace28edc769c3da94ea86db66fbe706b45eb"
+    },
+    {
+      "guid" : "eef1c38bf8d2eb6cf84e19cd1becace2cf194f3dadd5c94036356f920bb8f2e7"
+    },
+    {
+      "guid" : "eef1c38bf8d2eb6cf84e19cd1becace25c685180bacfae9a0c58ad024bb85c37"
+    }
+  ],
+  "containerPath" : "/Users/denkan/TND004/Labs/lab4/build/TND004-Lab-4.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx12.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/denkan/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/denkan/Library/Developer/Xcode/DerivedData/TND004-Lab-4-cfoymcupokbyoyhatzowwbnhtrlx/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/denkan/Library/Developer/Xcode/DerivedData/TND004-Lab-4-cfoymcupokbyoyhatzowwbnhtrlx/Index/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : true,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

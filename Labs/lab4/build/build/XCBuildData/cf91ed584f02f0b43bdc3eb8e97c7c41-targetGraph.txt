@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+ZERO_CHECK in TND004-Lab-4, no dependencies
+Lab4a in TND004-Lab-4, depends on:
+ZERO_CHECK in TND004-Lab-4 (explicit)
