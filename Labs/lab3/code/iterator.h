@@ -34,14 +34,12 @@ public:
         Iterator tmp = *this;
         ++(*this);
         return tmp;
-        
     }
     
     Iterator& operator--(int) { //pos-decrement
         Iterator tmp = *this;
         --(*this);
         return tmp;
-        
     }
     
     Iterator& operator++() { //pre-increment

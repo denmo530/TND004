@@ -47,7 +47,7 @@ public:
 
 // Check if char is ok or not
 bool checkChar(const char c) {
-    if (std::isdigit(c) || std::isalpha(c) || (c == '\''))
+    if ( std::isdigit(c) || std::isalpha(c) || (c == '\'') || (c == '-')) // Catch c == '’')
         return false;
     
     return true;
@@ -60,8 +60,8 @@ bool checkChar(const char c) {
 void exercise3() {
 #ifdef TEST_EXERCISE3
     {
-        std::ifstream file("../../code/text.txt");  // contains 56 unique words
-        // std::ifstream file("../code/text_long.txt"); // contains 497 unique words
+        // std::ifstream file("../../code/text.txt");  // contains 56 unique words
+         std::ifstream file("../../code/text_long.txt"); // contains 497 unique words
 
         if (!file) {
             std::cout << "Couldn't open file text.txt\n";
@@ -103,16 +103,17 @@ void exercise3() {
         std::vector<Row> test;
         std::copy(freqTable.begin(), freqTable.end(), std::back_inserter(test));
         
-        std::ifstream in("../../code/frequency_table.txt");
+       // std::ifstream in("../../code/frequency_table.txt");
+        std::ifstream in("../../code/frequency_table_long.txt");
         std::vector<Row> facit;
-        std::string aWord;
+        std::string word;
         int counter2;
 
-        while (in >> aWord >> counter2) {
-            Row prepareForFacit;
-            prepareForFacit.key = aWord;
-            prepareForFacit.counter = counter2;
-            facit.push_back(prepareForFacit);
+        while (in >> word >> counter2) {
+            Row newRow;
+            newRow.key = word;
+            newRow.counter = counter2;
+            facit.push_back(newRow);
             }
         
         assert(test == facit);

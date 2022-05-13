@@ -39,9 +39,9 @@ public:
 
     // Constructor 
     explicit BinarySearchTree(const std::vector<Comparable>& V) {
-        root = createBST(V.begin(), V.end(), nullptr); // function call is O(n)
+        root = createBST(V.begin(), V.end(), nullptr); // function call is O(1)
         
-        // nlog(n) in the end
+        // log(n) in the end
         
     }
 
@@ -214,10 +214,10 @@ private:
 
     //Create BST function
     Node* createBST(typename std::vector<Comparable>::const_iterator begin, typename std::vector<Comparable>::const_iterator end, Node* parent) {
-        if (std::distance(begin, end) == 0) // worst case O(n)
+        if (std::distance(begin, end) == 0) //O(1)
             return nullptr; 
 
-        auto mid = begin + std::distance(begin, end) / 2;  // worst case O(n)
+        auto mid = begin + std::distance(begin, end) / 2;  // worst case O(1)
         Node* newNode = new Node(*mid, nullptr, nullptr, nullptr); // O(1)
         newNode->parent = parent;  // O(1)
 
@@ -226,7 +226,7 @@ private:
         
 
         return newNode; // O(1)
-// 2n + 2log(n) = log(n)
+// log(n)
     }
 
 
@@ -300,7 +300,7 @@ private:
         // Tail recursion can be easily replaced by a loop
         return findMin(t->left);  // recursive call
     }
-
+    
     /**
      * Private member function to find the largest item in a subtree t.
      * Return node containing the largest item.
@@ -378,9 +378,7 @@ private:
         {
             for (size_t i = 0; i < level; i++)
             {
-               
                 out << "  ";
-                
             }
 
             out << t->element << std::endl;
