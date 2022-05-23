@@ -47,4 +47,7 @@ private:
     std::vector<std::list<Edge>> table;  // table of adjacency lists
     int size;                            // number of vertices
     int n_edges;                         // number of edges
+    
+    const int inf = std::numeric_limits<int>::max();
+
 };

@@ -11,6 +11,7 @@
 #include "heap.h"
 #include "dsets.h"
 
+
 // Note: graph vertices are numbered from 1 -- i.e. there is no vertex zero
 
 // -- CONSTRUCTORS
@@ -74,12 +75,91 @@ void Graph::mstPrim() const {
     std::vector<bool> done(size_t(size) + 1);
 
     // *** TODO ***
-}
+    for (int i = 1; i <= size; i++) {
+        dist[i] = inf;
+        path[i] = 0;
+        done[i] = false;
+    }
+    // start from any given vertex v
+    int v = 1;
+    dist[v] = 0;
+    done[v] = true;
+    int totalWeight = 0;
+    
+    
+    while (true) {
+        for (auto it = table[v].begin(); it != table[v].end(); ++it) {
+            int u = it->tail;
+            if(done[u] == false && dist[u] > it->weight) {
+                dist[u] = it->weight;
+                path[u] = v;
+            }
+        }
+            
+            int smallestDist = inf;
+            
+            for (int i = 1; i <= size; ++i) {
+                if(!done[i] && dist[i] < smallestDist) {
+                    smallestDist = dist[i];
+                    v = i;
+                }
+            }
+            
+            if (smallestDist == inf)
+                break;
+            
+            Edge ourEdge(path[v], v, dist[v]);
+            std::cout << ourEdge << std::endl;
+            
+            totalWeight += dist[v];
+            done[v] = true;
+         }
+        
+    
+    
+    std::cout << "Total weight = " << totalWeight << std::endl;
 
+    
+}
+    
 // Kruskal's minimum spanning tree algorithm
 void Graph::mstKruskal() const {
 
     // *** TODO ***
+    //Heap<Edge> H;
+    DSets D(size);
+    std::vector<Edge> V;
+    
+    int counter = 0;
+    int totalWeight = 0;
+    
+    Edge e;
+    V.push_back(e);
+    
+    for (int i = 1; i <= size; ++i) {
+        for(auto it = table[i].begin(); it != table[i].end(); it++){
+            //Edge myEdge(it->head, it->tail, it->weight);
+            if (i < it->tail)
+                V.push_back(*it);
+        }
+        
+    }
+    
+    Heap<Edge> H{ V };
+    
+    while (!H.isEmpty() && counter < size - 1) {
+        Edge e = H.deleteMin();
+        
+        if(D.find(e.head) != D.find(e.tail)){
+            D.join(D.find(e.head), D.find(e.tail));
+            totalWeight += e.weight;
+            std::cout << e << std::endl;
+            counter++;
+        }
+    }
+    
+    std::cout << "Total weight = " << totalWeight << std::endl;
+
 }
 
 // print graph
